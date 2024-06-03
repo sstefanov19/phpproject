@@ -1,0 +1,17 @@
+.profile-header {
+    margin-bottom: 30px;
+}
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+.follower-count {
+    margin: 10px 0;
+}
+.posts-section {
+    margin-top: 30px;
+}
+.card {
+    border-radius: 15px;
+}

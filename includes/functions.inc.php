@@ -104,3 +104,20 @@ function createPost($conn, $title, $content, $userId) {
     header("Location: ../index.php?error=none");
     exit();
 }
+
+function updatePost($conn, $title, $content, $userId) {
+    $sql = "UPDATE posts SET title = ? , content = ? WHERE userId =?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("../profile.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ssi" , $title , $content , $userId );
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("Location: ../profile.php?error=none");
+}
+
+
