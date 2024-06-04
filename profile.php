@@ -110,7 +110,7 @@ $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
                             <h5 class="card-title"><?php echo htmlspecialchars($post['postTitle']); ?></h5>
                             <h6 class="card-subtitle mb-2 text-muted">Posted on <?php echo htmlspecialchars($post['postDate']); ?></h6>
                             <p class="card-text"><?php echo nl2br(htmlspecialchars($post['postContent'])); ?></p>
-                            <?php include 'edit.php' ?>
+                            <?php include 'edit_post.php' ?>
                         </div>
 
                     </div>

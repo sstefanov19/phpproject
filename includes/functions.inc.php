@@ -120,4 +120,14 @@ function updatePost($conn, $title, $content, $userId) {
     header("Location: ../profile.php?error=none");
 }
 
-
+function isFollowing($conn, $followerId, $followeeId) {
+    $sql = "SELECT * FROM followers WHERE user_id = ? AND follower_id = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        return false;
+    }
+    mysqli_stmt_bind_param($stmt, "ii", $followeeId, $followerId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    return mysqli_num_rows($result) > 0;
+}

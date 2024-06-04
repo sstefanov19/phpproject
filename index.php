@@ -1,6 +1,7 @@
 <?php
 include_once "header.php";
 require_once 'includes/dbh.inc.php';
+require_once 'includes/functions.inc.php';
 
 // Fetch posts and corresponding user info
 $sql = "SELECT posts.postId, posts.postTitle, posts.postContent, posts.postDate, posts.userId, users.usersUid 
@@ -9,7 +10,11 @@ $sql = "SELECT posts.postId, posts.postTitle, posts.postContent, posts.postDate,
         ORDER BY posts.postDate DESC";
 $result = mysqli_query($conn, $sql);
 $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+
+
 ?>
+
 
 <div class="container mt-5">
     <div class="row">
@@ -79,7 +84,9 @@ $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                         <?php if (isset($_SESSION['userid']) && $_SESSION['userid'] != $post['userId']): ?>
                                             <form action="follow.php" method="POST" style="display:inline;">
                                                 <input type="hidden" name="user_id" value="<?php echo $post['userId']; ?>">
-                                                <button type="submit" name="follow" class="btn btn-link">Follow</button>
+                                                <button type="submit" name="follow" class="btn btn-link">
+                                                    <?php echo isFollowing($conn, $_SESSION['userid'], $post['userId']) ? 'Unfollow' : 'Follow'; ?>
+                                                </button>
                                             </form>
                                         <?php endif; ?>
                                     </h6>
@@ -107,7 +114,8 @@ $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 </div>
 
 <!-- Edit Post Modal -->
-<div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="editPostModalLabel" aria-hidden="true">
+<div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="editPostModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -140,4 +148,5 @@ $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <script src="script.js"></script>
 
 </body>
+
 </html>
