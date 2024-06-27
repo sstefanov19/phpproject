@@ -52,7 +52,6 @@ mysqli_stmt_bind_param($stmt, "i", $userId);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +70,7 @@ $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <div class="row">
         <div class="col-md-3">
             <div class="card">
-                <img src="<?php echo isset($user['profilePic']) ? htmlspecialchars($user['profilePic']) : 'https://via.placeholder.com/150'; ?>" class="card-img-top" alt="Profile Picture">
+                <img src="<?php echo htmlspecialchars($user['profile_pic_path'] ?: 'https://via.placeholder.com/150'); ?>" class="card-img-top" alt="Profile Picture">
                 <div class="card-body">
                     <h5 class="card-title"><?php echo htmlspecialchars($user['usersUid']); ?></h5>
                     <p class="card-text">Followers: <?php echo $followerCount; ?></p>
@@ -112,7 +111,6 @@ $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
                             <p class="card-text"><?php echo nl2br(htmlspecialchars($post['postContent'])); ?></p>
                             <?php include 'edit_post.php' ?>
                         </div>
-
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>

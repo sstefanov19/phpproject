@@ -3,26 +3,22 @@ include_once "header.php";
 require_once 'includes/dbh.inc.php';
 require_once 'includes/functions.inc.php';
 
-// Fetch posts and corresponding user info
+
+
 $sql = "SELECT posts.postId, posts.postTitle, posts.postContent, posts.postDate, posts.userId, users.usersUid 
         FROM posts 
         JOIN users ON posts.userId = users.usersId 
         ORDER BY posts.postDate DESC";
 $result = mysqli_query($conn, $sql);
 $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-
-
 ?>
-
 
 <div class="container mt-5">
     <div class="row">
         <!-- Profile Section -->
         <div class="col-md-3">
             <div class="card">
-                <img src="<?php echo isset($_SESSION['profilePic']) ? $_SESSION['profilePic'] : 'https://via.placeholder.com/150'; ?>"
-                    class="card-img-top" alt="Profile Picture">
+                <?php include_once 'profile_pic.php'?>
                 <div class="card-body">
                     <h5 class="card-title">
                         <?php
@@ -33,7 +29,7 @@ $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
                         }
                         ?>
                     </h5>
-                    <p class="card-text">Welcome back,
+                    <p class="card-text">Welcome back, 
                         <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Guest'; ?>!
                         Here’s your profile information.
                     </p>
@@ -44,7 +40,6 @@ $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 </div>
             </div>
         </div>
-
         <!-- Posts Display Section -->
         <div class="col-md-9">
             <div class="row justify-content-center">
@@ -79,7 +74,7 @@ $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo htmlspecialchars($post['postTitle']); ?></h5>
                                     <h6 class="card-subtitle mb-2 text-muted">
-                                        By <?php echo htmlspecialchars($post['usersUid']); ?>
+                                        By <a href="profile.php?username=<?php echo htmlspecialchars($post['usersUid']); ?>"><?php echo htmlspecialchars($post['usersUid']); ?></a>
                                         on <?php echo htmlspecialchars($post['postDate']); ?>
                                         <?php if (isset($_SESSION['userid']) && $_SESSION['userid'] != $post['userId']): ?>
                                             <form action="follow.php" method="POST" style="display:inline;">
@@ -148,5 +143,4 @@ $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <script src="script.js"></script>
 
 </body>
-
 </html>

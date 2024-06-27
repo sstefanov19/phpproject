@@ -18,3 +18,9 @@ body {
     font-size: 1.5em;
     margin-bottom: 30px;
 }
+
+.fixed-profile {
+    position: fixed;
+    top: 70px; /* Adjust based on your header height */
+    width: 23%; /* Ensure it does not take more width */
+}
