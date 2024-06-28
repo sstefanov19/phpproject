@@ -31,6 +31,6 @@ if ($row = mysqli_fetch_assoc($result)) {
     
 </head>
 <body>
-    <img src="<?php echo htmlspecialchars($imageSrc); ?>" height="150px" width="200px" justify-content="center" alt="Profile Picture">
+    <img src="<?php echo htmlspecialchars($imageSrc); ?>" height="150px" width="100%" justify-content="center" alt="Profile Picture">
 </body>
 </html>
